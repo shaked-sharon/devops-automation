@@ -205,3 +205,37 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
+logs/*.log
+!logs/.gitkeep
+configs/instances.json
+
+# Temporary files
+*.tmp
+*.temp
+# Backup files
+*.bak
+*.swp
+# Cache files
+.cache/ 
