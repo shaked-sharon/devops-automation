@@ -23,7 +23,7 @@ def validate_machine_input(name, os, cpu, ram):
         if cpu_num < 1 or cpu_num > 32:
             errors.append("CPU must be a number between 1 and 32")
     except:
-        errors.append("CPU must be a number (like 2 or 4)")
+        errors.append("CPU must be a whole number (i.e. 2 or 4)")
     
     # This will check if RAM has valid number
     try:
@@ -31,7 +31,7 @@ def validate_machine_input(name, os, cpu, ram):
         if ram_num < 1 or ram_num > 128:
             errors.append("RAM must be a number between 1 and 128 GB")
     except:
-        errors.append("RAM must be a number (like 4 or 8)")
+        errors.append("RAM must be a whole number (i.e. 4 or 8)")
     
     # This will "Return True" if no errors or "False" if > errors
     return len(errors) == 0, errors
@@ -41,11 +41,11 @@ def get_user_input():
     machines = []
     
     print("Welcome to my DevOps Automation Program!")
-    print("Lets make some virtual machines! So exciting!")
+    print("Lets create a virtual machine! Very exciting!")
     print()
     
     while True:
-        print("Enter the details of the virtual machine (or type 'done' if youre finished):")
+        print("Enter the name of the virtual machine and follow the prompts (or type 'done' if youre finished):")
         
         # Gets name of  virtual machine
         name = input("Machine Name: ").strip()
