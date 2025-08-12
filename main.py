@@ -39,11 +39,11 @@ def load_machines_from_config():
             return []
     except Exception as e:
         print(f"Error loading configuration: {e}")
-        logger.error(f"Failed to load config: {e}")
+        logger.error(f"Failed to load configuration: {e}")
         return []
 
 def provision_machines(machine_configs):
-    # Function creates Machine objects & simulates provisioning
+    # Function creates virtual machine / simulates provisioning
     provisioned_machines = []
     
     print("\n" + "="*50)
@@ -51,7 +51,7 @@ def provision_machines(machine_configs):
     print("="*50)
     
     for machine in machine_configs:
-        print(f"\nProvisioning machine: {machine['name']}")
+        print(f"\nProvisioning virtual machine: {machine['name']}")
         print("-" * 30)
         if provision_machine(machine):
             provisioned_machines.append(machine)
@@ -61,19 +61,18 @@ def provision_machines(machine_configs):
     return provisioned_machines
 
 def provision_machine(machine):
-    # Simulate provisioning logic (was Machine.provision())
-    # You can add more logic here as needed
-    logger.info(f"Provisioning machine: {machine['name']}")
-    # Simulate always successful
+    # Simulates provisioning
+    logger.info(f"Provisioning virtual machine: {machine['name']}")
+    # Simulates always successful
     return True
 def install_services(machines):
-    # This function pretends to install services on our machines
+    # Function simulates installation services on machines
     print("\n" + "="*50)
     print("Starting Service Installation...")
     print("="*50)
     
     for machine in machines:
-        print(f"\nInstalling services on machine: {machine['name']}")
+        print(f"\nInstalling services on virtual machine: {machine['name']}")
         print("-" * 40)
         try:
             # Executes bash script to simulate Nginx installation
@@ -110,12 +109,12 @@ def install_services(machines):
             logger.error(error_msg)
 
 def show_menu():
-    #Function tells user what actions they can take
+    #Function asks user what actions they want to take
     print("\n" + "="*50)
     print("DevOps Infrastructure Automation Program")
     print("="*50)
-    print("1. Create new virtual machines")
-    print("2. Show any existing machines")
+    print("1. Create new virtual machine")
+    print("2. Show existing machines")
     print("3. Provision virtual machines")
     print("4. Install services to virtual machines")
     print("5. Full automation--Create, provision, install")
@@ -151,19 +150,19 @@ def main():
     
     while True:
         show_menu()
-        choice = input("Enter your choice (1-6): ").strip()
+        choice = input("Choose an option 1 - 6: ").strip()
         
         if choice == '1':
             # Create new machines
-            print("\nCreating new virtual machines...")
+            print("\nCreating new virtual machine...")
             machines = get_user_input()
             if machines:
                 if save_machines_to_config(machines):
-                    print("Virtual Machines successfully created! Hooray!")
+                    print("Virtual Machine successfully created! Hooray!")
                 else:
                     print("Error trying to save virtual machine...Boo!")
             else:
-                print("No virtual machines created. Sadface...")
+                print("No machine created. Sadface...")
         
         elif choice == '2':
             # Show existing machines
@@ -175,7 +174,7 @@ def main():
             if machines:
                 provision_machines(machines)
             else:
-                print("No virtual machines found. Please first create a virtual machine before continuing...")
+                print("No virtual machines found. Please create a virtual machine before continuing...")
         
         elif choice == '4':
             # Installation services
@@ -183,11 +182,11 @@ def main():
             if machines:
                 install_services(machines)
             else:
-                print("No virtual machines found. Please first create a virtual machine before continuing...")
+                print("No virtual machines found. Please create a virtual machine before continuing...")
         
         elif choice == '5':
             # Full automation
-            print("\nStarting full automation process...")
+            print("\nStarting automated process...")
             machines = get_user_input()
             if machines:
                 # Saves vm's

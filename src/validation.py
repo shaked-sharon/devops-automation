@@ -10,7 +10,7 @@ def validate_machine_input(name, os, cpu, ram):
     if not name or name.strip() == "":
         errors.append("Machine name cannot be empty")
     elif len(name) > 50:
-        errors.append("Machine name is too long (max 50 characters)")
+        errors.append("Machine name is too long")
     
     # This checks if os = valid
     valid_os = ["ubuntu", "centos", "windows", "macos"]
@@ -57,10 +57,10 @@ def get_user_input():
         os = input("Operating system: ").strip()
         
         # Gets CPU (only number)
-        cpu = input("CPU cores (enter just a number like 2 or 4): ").strip()
+        cpu = input("CPU cores (2 - 64 cores): ").strip()
         
         # Gets RAM (only number)
-        ram = input("RAM in GB (enter just a number like 4 or 8): ").strip()
+        ram = input("RAM in GB (1 - 128): ").strip()
         
         # Checks if input is valid
         is_valid, error_messages = validate_machine_input(name, os, cpu, ram)
