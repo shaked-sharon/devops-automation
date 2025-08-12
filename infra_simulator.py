@@ -157,11 +157,11 @@ def main():
                 name = input("Machine Name: ").strip()
                 if name.lower() == 'done':
                     break
-                os = input("Operating system (Ubuntu, CentOS, Windows, MacOS): ").strip()
+                os_type = input("Operating system (Ubuntu, CentOS, Windows, MacOS): ").strip()
                 cpu = input("CPU cores (2 - 64): ").strip()
                 ram = input("RAM in GB (1 - 128): ").strip()
                 try:
-                    machine = Machine(name=name, os=os, cpu=int(cpu), ram=int(ram))
+                    machine = Machine(name=name, os=os_type, cpu=int(cpu), ram=int(ram))
                     machines.append(machine)
                     print(f"Machine '{name}' successfully added! Hooray!")
                 except Exception as e:
@@ -196,11 +196,11 @@ def main():
                 name = input("Machine Name: ").strip()
                 if name.lower() == 'done':
                     break
-                os = input("Operating system (Ubuntu, CentOS, Windows, MacOS): ").strip()
+                os_type = input("Operating system (Ubuntu, CentOS, Windows, MacOS): ").strip()
                 cpu = input("CPU cores (2 - 64): ").strip()
                 ram = input("RAM in GB (1 - 128): ").strip()
                 try:
-                    machine = Machine(name=name, os=os, cpu=int(cpu), ram=int(ram))
+                    machine = Machine(name=name, os=os_type, cpu=int(cpu), ram=int(ram))
                     machines.append(machine)
                     print(f"Machine '{name}' successfully added! Hooray!")
                 except Exception as e:

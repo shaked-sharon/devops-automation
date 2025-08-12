@@ -62,8 +62,8 @@ python3 infra_simulator.py
 
 ## Files Explained
 
-- **infra_simulator.py**: Main program that runs everything. Machines are represented as Python classes (`Machine`), and all provisioning and installation logic is handled by class methods and functions.
-- **src/machine.py**: Contains the `Machine` class, which uses Pydantic for input validation and provides methods for provisioning and serialization.
+- **infra_simulator.py**: Main program runs everything. Machines are represented as Python classes (`Machine`), and all provisioning & installation logic is handled by class methods & functions.
+- **src/machine.py**: Contains the `Machine` class, which uses Pydantic for input validation & provides methods for provisioning and serialization.
 - **src/logger.py**: Writes messages to log files
 - **scripts/call_nginx.sh**: Simulates Nginx installation without actually installing it
 - **configs/instances.json**: Stores info about virtual machine created
