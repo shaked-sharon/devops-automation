@@ -47,6 +47,3 @@ echo "Firewalls configured! Hooray, your machine is secured!"
 
 echo "Nginx installation & configuration successfully completed! Congratulations!!!"
 echo "Server is now ready..."
-
-# Writes to logfile that installation completed
-echo "$(date): Nginx installation simulation complete" >> logs/nginx_install.log

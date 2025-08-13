@@ -2,7 +2,6 @@
 # Uses schema for simulation > virtual machines
 # Each virtual machine will have unique name by user, OS, cpu core, & ram GB
 
-import logging
 from pydantic import BaseModel, field_validator
 
 ALLOWED_OSES = {"ubuntu", "centos", "windows", "macos"}
@@ -46,6 +45,7 @@ class Machine(BaseModel):
         print(f"CPU: {self.cpu} cores")
         print(f"RAM: {self.ram} GB")
         print(f"Virtual Machine {self.name} has successfully been created! Hooray!")
-        logging.basicConfig(filename='machine.log', level=logging.INFO)
-        logging.info(f"Provisioned virtual machine: {self.name} - {self.os}, {self.cpu} CPU, {self.ram} GB RAM")
+        # Use the main logger instead of separate logging
+        from src.logger import logger
+        logger.info(f"Provisioned virtual machine: {self.name} - {self.os}, {self.cpu} CPU, {self.ram} GB RAM")
         return True

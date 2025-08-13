@@ -15,7 +15,7 @@ def save_machines_to_config(machines):
     # Function saves machine info > config file
     try:
         # Saves as list of dict
-        config_data = {"virtual machine": [m.to_dict() for m in machines]}
+        config_data = {"virtual machines": [m.to_dict() for m in machines]}
         with open('configs/instances.json', 'w') as f:
             json.dump(config_data, f, indent=4)
         print(f"Saved {len(machines)} virtual machine(s) to config file")
@@ -32,7 +32,7 @@ def load_machines_from_config():
         if os.path.exists('configs/instances.json'):
             with open('configs/instances.json', 'r') as f:
                 config_data = json.load(f)
-                machines = config_data.get('virtual machine', [])
+                machines = config_data.get('virtual machines', [])
                 return [Machine(**m) for m in machines]
         else:
             return []
@@ -59,11 +59,6 @@ def provision_machines(machine_configs):
             print(f"Failed to provision {machine.name}")
     return provisioned_machines
 
-def provision_machine(machine):
-    # Simulates provisioning
-    logger.info(f"Provisioning virtual machine: {machine['name']}")
-    # Simulates always successful
-    return True
 def install_services(machines):
     # Function simulates installation services on machines
     print("\n" + "="*50)
@@ -74,12 +69,12 @@ def install_services(machines):
         print(f"\nInstalling services on virtual machine: {machine.name}")
         print("-" * 40)
         try:
-            script_path = 'scripts/call_nginx.sh'
+            script_path = 'scripts/setup_nginx.sh'
             if not os.path.exists(script_path):
                 raise FileNotFoundError(f"Script {script_path} not found")
             print(f"Running installation script for {machine.name}...")
             result = subprocess.run(
-                ['bash', 'scripts/call_nginx.sh'],
+                ['bash', 'scripts/setup_nginx.sh'],
                 capture_output=True,
                 text=True,
                 check=True
@@ -173,6 +168,10 @@ def main():
             if machines:
                 if save_machines_to_config(machines):
                     print("Virtual Machine(s) successfully created! Hooray!")
+                    # Provisioning & installation of services
+                    provisioned_machines = provision_machines(machines)
+                    install_services(provisioned_machines)
+                    print("Virtual Machine created & completed service installation! Hooray!")
                 else:
                     print("Error trying to save virtual machine...Boo!")
             else:
