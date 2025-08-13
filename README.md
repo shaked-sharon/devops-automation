@@ -17,10 +17,10 @@ This is a DevOps infrastructure provisioning & configuration automation project.
 ## What This Program Does
 
 
-1. **Menu Style Interface**: Using QA experience, user experience added with menu-style interface & multiple operation options for friendly navigation
+1. **Menu Style Interface**: Using QA experience, user experience added with menu tyle interface & multiple operation options for friendly navigation
 2. **Collects User Input**: Asks user to define virtual machine & name it, which OS to use for machine, CPU cores, and RAM GB specs
 3. **Validation Input**: Ensures all user input is correct & secure using python Machine class & Pydantic validation, with error handling added from QA testing experience
-4. **Complete Automation**: Option 1 provides full end-to-end workflow - creates, provisions, and installs services in one step
+4. **Complete Automation**: Provides full workflow - creates, provisions, & service installation
 5. **Simulates Provisioning**: Simulates creation of virtual machines using Python class "Machine" (prints messages instead of actually creating VMs)
 6. **Installs Services**: Executes Bash script which simulates installing Nginx on each machine
 7. **Logging File**: Keeps track of all actions in log files
