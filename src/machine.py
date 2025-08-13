@@ -1,42 +1,51 @@
-# This file will be used to create a schema for the simulation of the virtual machines
-# Each virtual machine should have a name, OS, cpu number, & ram number
+# Uses Pydantic for data validation inherited from BaseModel
+# Uses schema for simulation > virtual machines
+# Each virtual machine will have unique name by user, OS, cpu core, & ram GB
 
-import json
 import logging
+from pydantic import BaseModel, field_validator
 
-class Machine:
-    # Function will run when I create a new machine
-    def __init__(self, name, os, cpu, ram):
-        # Stores the vm details that user inputs
-        # Details needed for vm
-        self.name = name
-        self.os = os
-        self.cpu = cpu  # int number i.e. 2,4,8, etc.
-        self.ram = ram  # int number i.e. 2,4,8, etc.
-    
-    # Function turns vm details into dictionary
-    # Note to self: Dictionary like a list with labels
+ALLOWED_OSES = {"ubuntu", "centos", "windows", "macos"}
+
+class Machine(BaseModel):
+    name: str
+    os: str
+    cpu: int
+    ram: int
+
+    @field_validator('name')
+    def validate_name(cls, v):
+        if not v or not v.strip():
+            raise ValueError("Machine name cannot be empty.")
+        return v
+
+    @field_validator('os')
+    def validate_os(cls, v):
+        if v.lower() not in ALLOWED_OSES:
+            raise ValueError(f"Invalid OS: {v}. Allowed values are: Ubuntu, CentOS, Windows, MacOS.")
+        return v
+
+    @field_validator('cpu')
+    def validate_cpu(cls, v):
+        if not (2 <= v <= 64):
+            raise ValueError("CPU cores must be between 2 and 64.")
+        return v
+
+    @field_validator('ram')
+    def validate_ram(cls, v):
+        if not (1 <= v <= 128):
+            raise ValueError("RAM must be between 1 and 128 GB.")
+        return v
+
     def to_dict(self):
-        return {
-            "name": self.name,
-            "os": self.os,
-            "cpu": self.cpu,
-            "ram": self.ram
-        }
-    
-    #Function simulates creating vm and writes log messages
-    # If this was real, this would call API's
+        return self.model_dump()
+
     def provision(self):
-        # Prints messages simulating fake calling of vm
         print(f"Creating virtual machine: {self.name}")
         print(f"Operating System: {self.os}")
         print(f"CPU: {self.cpu} cores")
         print(f"RAM: {self.ram} GB")
         print(f"Virtual Machine {self.name} has successfully been created! Hooray!")
-        
-        # Will write  logfile that vm was simulated
-        # Where log provisioning process should occur
         logging.basicConfig(filename='machine.log', level=logging.INFO)
         logging.info(f"Provisioned virtual machine: {self.name} - {self.os}, {self.cpu} CPU, {self.ram} GB RAM")
-        
         return True

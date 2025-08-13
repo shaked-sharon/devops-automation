@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # Main program file
-# Coordinates all files for automation tool
+# Puts all files in an automation
 
 
 import json
@@ -12,9 +12,9 @@ from src.machine import Machine
 from src.logger import logger
 
 def save_machines_to_config(machines):
-    # This function saves the machine info to config file
+    # Function saves machine info > config file
     try:
-        # Save as list of dicts
+        # Saves as list of dict
         config_data = {"virtual machine": [m.to_dict() for m in machines]}
         with open('configs/instances.json', 'w') as f:
             json.dump(config_data, f, indent=4)
@@ -119,7 +119,7 @@ def show_menu():
     print("-" * 50)
 
 def show_existing_machines():
-    # This function shows machines that are already saved
+    # Function shows machines which are configured & saved
     machines = load_machines_from_config()
     if not machines:
         print("No virtual machines found for configuration.")
@@ -135,7 +135,7 @@ def show_existing_machines():
         print()
 
 def main():
-    # Main function that runs program
+    # Main function > runs program
     print("Welcome to my DevOps Infrastructure Automation Program!")
     print("This program assists in creating and executing virtual machines.")
     
@@ -149,7 +149,7 @@ def main():
         show_menu()
         choice = input("Choose an option 1 - 6: ").strip()
         if choice == '1':
-            # Create new machines
+            # Creates new machine
             print("\nCreating new virtual machine...")
             machines = []
             while True:
@@ -160,13 +160,15 @@ def main():
                 os_type = input("Operating system (Ubuntu, CentOS, Windows, MacOS): ").strip()
                 cpu = input("CPU cores (2 - 64): ").strip()
                 ram = input("RAM in GB (1 - 128): ").strip()
-                print()  # Add a blank line for readability
+                print()  # Adds blank line
                 try:
                     machine = Machine(name=name, os=os_type, cpu=int(cpu), ram=int(ram))
                     machines.append(machine)
                     print(f"Machine '{name}' successfully added! Hooray!")
                 except Exception as e:
                     print(f"Input error: {e}")
+                    print("Error!!Please enter details correctly...")
+                    continue
                 print("-" * 40)
             if machines:
                 if save_machines_to_config(machines):
@@ -202,10 +204,12 @@ def main():
                 ram = input("RAM in GB (1 - 128): ").strip()
                 try:
                     machine = Machine(name=name, os=os_type, cpu=int(cpu), ram=int(ram))
-                    machines.append(machine)
-                    print(f"Machine '{name}' successfully added! Hooray!")
                 except Exception as e:
                     print(f"Input error: {e}")
+                    print("Error!!Please enter details correctly...")
+                    continue
+                machines.append(machine)
+                print(f"Machine '{name}' successfully added! Hooray!")
                 print("-" * 40)
             if machines:
                 if save_machines_to_config(machines):
